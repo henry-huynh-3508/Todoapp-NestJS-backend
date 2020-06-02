@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Get } from '@nestjs/common';
 import { TodoListService } from './todolist.service';
 
 @Controller('todolist')
@@ -17,5 +17,10 @@ export class TodoListController {
       todolistItems,
     );
     return { message: 'Success' };
+  }
+
+  @Get()
+  getAllTodoLists(): any {
+    return this.todolistService.getTodoLists();
   }
 }

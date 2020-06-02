@@ -13,4 +13,8 @@ export class TodoListService {
     );
     this.todolists.push(newTodoList);
   }
+
+  getTodoLists(): any {
+    return [...this.todolists];
+  }
 }
