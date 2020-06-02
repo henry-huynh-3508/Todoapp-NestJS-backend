@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Todolist } from './todolist.model';
 @Injectable()
 export class TodoListService {
@@ -6,7 +6,7 @@ export class TodoListService {
 
   addTodoList(tittle: string, desc: string, items: any[]): any {
     const newTodoList = new Todolist(
-      new Date().toISOString(),
+      Math.random().toString(),
       tittle,
       desc,
       items,
@@ -16,5 +16,13 @@ export class TodoListService {
 
   getTodoLists(): any {
     return [...this.todolists];
+  }
+
+  getSingleTodoList(listid: string): any {
+    const list = this.todolists.find(todolist => todolist.id === listid);
+    if (!list) {
+      throw new NotFoundException('Could not find list ' + listid);
+    }
+    return { ...list };
   }
 }
