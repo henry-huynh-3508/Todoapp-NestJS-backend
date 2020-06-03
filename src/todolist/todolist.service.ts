@@ -26,7 +26,12 @@ export class TodoListService {
     return { ...list };
   }
 
-  updateSingleTodoList(id: string, title: string, desc: string, items: any[]) {
+  updateSingleTodoList(
+    id: string,
+    title: string,
+    desc: string,
+    items: any[],
+  ): any {
     const listIndex = this.todolists.findIndex(todolist => todolist.id === id);
     if (!listIndex) {
       throw new NotFoundException('Could not find list ' + id);
@@ -44,5 +49,15 @@ export class TodoListService {
     console.log(updatedTodolist);
     this.todolists[listIndex] = updatedTodolist;
     console.log(this.todolists);
+  }
+
+  deleteTodolist(todolistid: string): any {
+    const listIndex = this.todolists.findIndex(
+      todolist => todolist.id === todolistid,
+    );
+    if (!listIndex) {
+      throw new NotFoundException('Could not find list ' + todolistid);
+    }
+    this.todolists.splice(listIndex, 1);
   }
 }
