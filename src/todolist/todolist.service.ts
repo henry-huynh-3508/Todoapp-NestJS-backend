@@ -25,4 +25,24 @@ export class TodoListService {
     }
     return { ...list };
   }
+
+  updateSingleTodoList(id: string, title: string, desc: string, items: any[]) {
+    const listIndex = this.todolists.findIndex(todolist => todolist.id === id);
+    if (!listIndex) {
+      throw new NotFoundException('Could not find list ' + id);
+    }
+    const updatedTodolist = { ...this.todolists[listIndex] };
+    if (title) {
+      updatedTodolist.title = title;
+    }
+    if (desc) {
+      updatedTodolist.desc = desc;
+    }
+    if (items) {
+      updatedTodolist.items = items;
+    }
+    console.log(updatedTodolist);
+    this.todolists[listIndex] = updatedTodolist;
+    console.log(this.todolists);
+  }
 }
